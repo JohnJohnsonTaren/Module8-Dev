@@ -1,4 +1,6 @@
-package behavior.db.model;
+package behavior.db.service;
+
+import behavior.db.model.Client;
 
 import java.sql.*;
 import java.util.ArrayList;

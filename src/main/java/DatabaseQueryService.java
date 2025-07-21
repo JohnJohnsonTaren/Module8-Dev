@@ -23,7 +23,7 @@
 //      і під час запуску ніде не виникають Exceptions.
 
 import behavior.db.Database;
-import behavior.db.DatabaseMigrationService;
+import behavior.db.service.DatabaseMigrationService;
 import behavior.db.model.LongestProject;
 import behavior.db.model.MaxProjectCountClient;
 import behavior.db.model.MaxSalaryWorker;

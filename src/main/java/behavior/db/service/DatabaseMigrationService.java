@@ -1,4 +1,4 @@
-package behavior.db;
+package behavior.db.service;
 // Завдання №2 - створити клас для ініціалізації структури БД
 // Створи клас з назвою BehaviorDB.DatabaseInitService.
 // У цьому класі має бути метод public static void main(String[] args),

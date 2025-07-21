@@ -1,5 +1,5 @@
 import behavior.db.model.Client;
-import behavior.db.model.ClientService;
+import behavior.db.service.ClientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
