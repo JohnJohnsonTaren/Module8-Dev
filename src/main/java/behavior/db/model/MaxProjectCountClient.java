@@ -19,6 +19,6 @@ public class MaxProjectCountClient {
 
     @Override
     public String toString() {
-        return "Max Project Count Client {Name client = " + name + ", project count = " + projectCount + '}';
+        return "Max Project Count behavior.db.model.Client {Name client = " + name + ", project count = " + projectCount + '}';
     }
 }

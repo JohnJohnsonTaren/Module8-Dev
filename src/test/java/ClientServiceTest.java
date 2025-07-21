@@ -1,3 +1,5 @@
+import behavior.db.model.Client;
+import behavior.db.model.ClientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,14 +12,44 @@ class ClientServiceTest {
 
     @BeforeEach
     void setUp() {
-        clientService = new ClientService();
+        clientService = new ClientService() {
+            @Override
+            public long create(String name) {
+                return 0;
+            }
+
+            @Override
+            public String getById(Long id) {
+                return "";
+            }
+
+            @Override
+            public String getById(long id) {
+                return "";
+            }
+
+            @Override
+            public void setName(long id, String name) {
+
+            }
+
+            @Override
+            public void deleteById(long id) {
+
+            }
+
+            @Override
+            public List<Client> listAll() {
+                return List.of();
+            }
+        };
     }
 
     @Test
     void testCreateNameOk() {
-        long id = clientService.create("Client");
+        long id = clientService.create("behavior.db.model.Client");
         assertTrue(id > 0);
-        assertEquals("Client", clientService.getById(id));
+        assertEquals("behavior.db.model.Client", clientService.getById(id));
     }
 
     @Test
@@ -78,7 +110,7 @@ class ClientServiceTest {
     @Test
     void testDeleteByIdOk() {
         long id = clientService.create("Клієнт для видалення");
-        clientService.deliteById(id);
+        clientService.deleteById(id);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             clientService.getById(id);
         });

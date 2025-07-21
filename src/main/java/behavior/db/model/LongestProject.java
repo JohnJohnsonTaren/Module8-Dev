@@ -13,6 +13,6 @@ public class LongestProject {
 
     @Override
     public String toString() {
-        return "Longest Project {Name Client = " + nameClient + "}";
+        return "Longest Project {Name behavior.db.model.Client = " + nameClient + "}";
     }
 }
