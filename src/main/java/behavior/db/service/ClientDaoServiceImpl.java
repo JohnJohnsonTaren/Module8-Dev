@@ -16,22 +16,19 @@ public class ClientDaoServiceImpl implements ClientDaoService {
     }
 
     @Override
-    public Client save(Client client) {
+    public Client save(Client client) throws SQLException {
         if (client.getId() == 0) {
             String sql = "INSERT INTO client (name) VALUES (?)";
 
-            Connection connection = null;
-            try {
-                connection = getConnection();
-                try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                    pstmt.setString(1, client.getName());
-                    pstmt.executeUpdate();
-                    ResultSet rs = pstmt.getGeneratedKeys();
-                    if (rs.next()) {
-                        long id = rs.getLong(1);
-                        client.setId(id);
-                        return client;
-                    }
+            Connection connection = getConnection();
+            try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                pstmt.setString(1, client.getName());
+                pstmt.executeUpdate();
+                ResultSet rs = pstmt.getGeneratedKeys();
+                if (rs.next()) {
+                    long id = rs.getLong(1);
+                    client.setId(id);
+                    return client;
                 }
             } catch (SQLException e) {
                 System.err.println("Помилка при збереженні нового клієнта: " + e.getMessage());
@@ -39,25 +36,21 @@ public class ClientDaoServiceImpl implements ClientDaoService {
             }
             throw new RuntimeException("Не вдалося отримати ID для нового клієнта");
         } else {
-            // Для існуючого клієнта, використовуємо update
             update(client);
             return client;
         }
     }
 
     @Override
-    public Client findById(long id) {
+    public Client findById(long id) throws SQLException {
         String sql = "SELECT id, name FROM client WHERE id = ?";
 
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-                pstmt.setLong(1, id);
-                ResultSet rs = pstmt.executeQuery();
-                if (rs.next()) {
-                    return new Client(rs.getString("name"), rs.getLong("id"));
-                }
+        Connection connection = getConnection();
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Client(rs.getString("name"), rs.getLong("id"));
             }
         } catch (SQLException e) {
             System.err.println("Помилка при пошуку клієнта за ID: " + e.getMessage());
@@ -67,19 +60,16 @@ public class ClientDaoServiceImpl implements ClientDaoService {
     }
 
     @Override
-    public void update(Client client) {
+    public void update(Client client) throws SQLException {
         String sql = "UPDATE client SET name = ? WHERE id = ?";
 
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-                pstmt.setString(1, client.getName());
-                pstmt.setLong(2, client.getId());
-                int affectedRows = pstmt.executeUpdate();
-                if (affectedRows == 0) {
-                    System.err.println("Оновлення не відбулося: клієнта з ID " + client.getId() + " не знайдено.");
-                }
+        Connection connection = getConnection();
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, client.getName());
+            pstmt.setLong(2, client.getId());
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows == 0) {
+                System.err.println("Оновлення не відбулося: клієнта з ID " + client.getId() + " не знайдено.");
             }
         } catch (SQLException e) {
             System.err.println("Помилка при оновленні клієнта: " + e.getMessage());
@@ -88,17 +78,14 @@ public class ClientDaoServiceImpl implements ClientDaoService {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(long id) throws SQLException {
         String sql = "DELETE FROM client WHERE id = ?";
 
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-                pstmt.setLong(1, id);
-                int affectedRows = pstmt.executeUpdate();
-                return affectedRows > 0;
-            }
+        Connection connection = getConnection();
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setLong(1, id);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
         } catch (SQLException e) {
             System.err.println("Помилка при видаленні клієнта: " + e.getMessage());
             throw new RuntimeException("Не вдалося видалити клієнта", e);
@@ -106,17 +93,14 @@ public class ClientDaoServiceImpl implements ClientDaoService {
     }
 
     @Override
-    public List<Client> findAll() {
+    public List<Client> findAll() throws SQLException {
         List<Client> client = new ArrayList<>();
         String sql = "SELECT id, name FROM client";
-        Connection connection = null;
-        try {
-            connection = getConnection();
-            try (Statement stmt = connection.createStatement();
-                 ResultSet rs = stmt.executeQuery(sql)) {
-                while (rs.next()) {
-                    client.add(new Client(rs.getString("name"), rs.getLong("id")));
-                }
+        Connection connection = getConnection();
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                client.add(new Client(rs.getString("name"), rs.getLong("id")));
             }
         } catch (SQLException e) {
             System.err.println("Помилка при отриманні всіх клієнтів: " + e.getMessage());
