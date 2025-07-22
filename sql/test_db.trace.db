@@ -1,0 +1,22 @@
+2025-07-22 14:34:20.682424Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-232]
+2025-07-22 14:41:39.049733Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-232]
+2025-07-22 14:48:19.520899Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-232]
+2025-07-22 14:54:54.961693Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-232]
+2025-07-22 14:59:00.268072Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-232]
+2025-07-22 15:17:27.283619Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-232]
+2025-07-22 16:06:29.466930Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "CLIENTS" не найдена
+Table "CLIENTS" not found; SQL statement:
+UPDATE clients SET name = ? WHERE id = ? [42102-232]
